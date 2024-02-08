@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardPageController;
+use App\Http\Controllers\UserDashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,7 +31,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/dashboard/page', [DashboardPageController::class, 'show'])->name('dashboard.page');
+    Route::post('/dashboard/page/insert', [DashboardPageController::class, 'insert'])->name('dashboard.page.insert');
 });

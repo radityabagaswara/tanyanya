@@ -1,6 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    @apply text-tanya-pink-3 hover:text-tanya-pink-5;
+}
 
 [x-cloak] {
     display: none;

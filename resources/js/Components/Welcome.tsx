@@ -1,7 +1,10 @@
 import React from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import useTypedPage from '@/Hooks/useTypedPage';
 
 export default function Welcome() {
+  const page = useTypedPage();
+
   return (
     <div>
       <div className="p-6 lg:p-8 bg-white border-b border-gray-200">
