@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardPageController;
+use App\Http\Controllers\TanyaController;
 use App\Http\Controllers\UserDashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,8 @@ Route::middleware([
 
     Route::get('/dashboard/page', [DashboardPageController::class, 'show'])->name('dashboard.page');
     Route::post('/dashboard/page/insert', [DashboardPageController::class, 'insert'])->name('dashboard.page.insert');
+    Route::post('/dashboard/page', [DashboardPageController::class, 'update'])->name('dashboard.page.update');
+
 });
+
+Route::get("/{user}", [TanyaController::class, "index"])->name("tanya");

@@ -59,8 +59,37 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    /**
+     * @return string
+     */
+    public function getProfilePhotoUrlAttribute()
+    {
+
+        $config = [
+            'default' => $this->defaultProfilePhotoUrl(),
+            'size' => '200', // use 200px by 200px image
+        ];
+
+        return 'https://www.gravatar.com/avatar/' . md5($this->name) . '?' . http_build_query($config);
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultProfilePhotoUrl()
+    {
+        return 'https://ui-avatars.com/api/' . implode('/', [
+
+            //IMPORTANT: Do not change this order
+            urlencode($this->name), // name
+            200, // image size
+            'FEEEF3', // background color
+            'F5487F', // font color
+        ]);
+    }
+
     public function pages()
     {
-        return $this->hasMany(Pages::class);
+        return $this->hasMany(Pages::class, 'users_id', 'id');
     }
 }

@@ -1,3 +1,4 @@
+import FlashMessage from '@/Components/FlashMessage';
 import { DashboardSidebar } from '@/Components/navigation/DashboardSidebar';
 import { usePage } from '@inertiajs/react';
 import { ActionIcon, Burger } from '@mantine/core';
@@ -13,7 +14,7 @@ const DashboardLayout = ({ children }: Props) => {
   const [isMobile, setIsMobile] = useState(false);
   const [opened, { open, close, toggle }] = useDisclosure();
   const { width } = useViewportSize();
-  const { errors } = usePage().props;
+  const { errors, success }: any = usePage().props;
 
   useEffect(() => {
     if (width <= 768) {
@@ -25,19 +26,26 @@ const DashboardLayout = ({ children }: Props) => {
   }, [width]);
 
   useEffect(() => {
-    console.log(errors);
-
     if (errors.error) {
       notifications.show({
         message: errors.error,
         color: 'red',
-        title: 'There was an error while creating your page 😭',
+        title: 'There was an error while processing your request!',
       });
     }
-  }, [errors]);
+
+    if (success) {
+      notifications.show({
+        title: success.title as string,
+        message: success.message as string,
+        color: 'green',
+      });
+    }
+  }, [errors, success]);
 
   return (
     <>
+      <FlashMessage />
       {isMobile ? (
         <div
           className={`fixed top-5 z-40 transition-all ${

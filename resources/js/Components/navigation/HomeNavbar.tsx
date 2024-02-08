@@ -60,14 +60,19 @@ export function HomeNavBar() {
               {page.props.auth.user ? (
                 <Button
                   variant="transparent"
+                  p={'lg'}
                   leftSection={
-                    <Avatar color="tanya-pink">
-                      {page.props.auth.user.name.split('')[0]}
+                    <Avatar
+                      color="tanya-pink"
+                      src={page.props.auth.user.profile_photo_url}
+                    >
+                      {page.props.auth.user.name[0]}
                     </Avatar>
                   }
-                >
-                  <div>{page.props.auth.user.name}</div>
-                </Button>
+                  onClick={() => {
+                    router.visit('/dashboard');
+                  }}
+                ></Button>
               ) : (
                 <Button
                   onClick={() => {
