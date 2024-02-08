@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   Divider,
+  Overlay,
   Switch,
   Textarea,
   Tooltip,
@@ -17,13 +18,11 @@ interface Props {
 }
 
 const TanyaPage = ({ page, auth }: Props) => {
-  console.log(page);
-  console.log(auth);
   const [isAnonymous, setIsAnonymous] = React.useState<boolean>(true);
   return (
     <MainLayout>
       <div className="max-w-3xl mx-auto">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-12 lg:mt-24">
           <Avatar src={page.user.profile_photo_url} size={'xl'}>
             {page.user.name[0]}
           </Avatar>
@@ -31,8 +30,19 @@ const TanyaPage = ({ page, auth }: Props) => {
           <h2 className="text-sm text-gray-500">@{page.username}</h2>
           <p className="mt-1">{page.bio}</p>
         </div>
-        <div className="mt-8">
-          <Card withBorder bg={'white'} radius={'md'}>
+        <div className="mt-8 ">
+          <Card withBorder bg={'white'} radius={'md'} className="relative">
+            {page.is_accepting_question ? null : (
+              <>
+                <Overlay color="#fff" backgroundOpacity={0.35} blur={3} />
+                <div className="absolute left-0 top-0 w-full h-full flex justify-center items-center z-[10000]">
+                  <h3 className="font-semibold text-red-500">
+                    Creator has turned off the asking function!
+                  </h3>
+                </div>
+              </>
+            )}
+
             <Card.Section px={'lg'} pt={'lg'} pb={'sm'}>
               <Textarea
                 disabled={auth.user ? auth.user.id === page.user.id : false}

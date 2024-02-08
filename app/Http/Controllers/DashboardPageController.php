@@ -80,7 +80,11 @@ class DashboardPageController extends Controller
             'social_links.*.url' => [
                 'url',
                 function ($attribute, $value, $fail) {
-                    $parsedUrl = parse_url($value);
+                    $url = trim($value);
+                    $pattern = '/^(?:https?:\/\/)?(?:www\.)?([^\/\?]+)/i';
+                    preg_match($pattern, $url, $matches);
+                    $host = isset($matches[1]) ? $matches[1] : null;
+
                     $allowedDomains = [
                         'youtube.com',
                         'youtu.be',
@@ -90,7 +94,7 @@ class DashboardPageController extends Controller
                         'discord.gg',
                         'instagram.com',
                     ];
-                    if (!isset($parsedUrl['host']) || !in_array($parsedUrl['host'], $allowedDomains)) {
+                    if (!$host || !in_array($host, $allowedDomains)) {
                         $fail("$value is not a valid URL for supported social media platforms.");
                     }
                 },
