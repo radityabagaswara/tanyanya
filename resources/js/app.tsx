@@ -1,6 +1,9 @@
+import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
+import '@mantine/dates/styles.css';
+
 import './bootstrap';
 import '../css/app.css';
-
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
@@ -8,9 +11,6 @@ import { RouteContext } from '@/Hooks/useRoute';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-
-import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
 
 const appName =
   window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';

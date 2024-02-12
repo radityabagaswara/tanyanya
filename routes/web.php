@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\DashboardPageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TanyaController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\UserSettingsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,6 +39,9 @@ Route::middleware([
     Route::get('/dashboard/page', [DashboardPageController::class, 'show'])->name('dashboard.page');
     Route::post('/dashboard/page/insert', [DashboardPageController::class, 'insert'])->name('dashboard.page.insert');
     Route::post('/dashboard/page', [DashboardPageController::class, 'update'])->name('dashboard.page.update');
+
+    Route::get("/dashboard/settings", [UserSettingsController::class, "index"])->name("dashboard.settings");
+    Route::post("/dashboard/profile", [ProfileController::class, "update"])->name("dashboard.profile.update");
 
 });
 

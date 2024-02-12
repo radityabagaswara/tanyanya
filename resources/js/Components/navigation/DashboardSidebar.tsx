@@ -11,15 +11,20 @@ import {
   IconSwitchHorizontal,
   IconLogout,
   IconLayoutDashboard,
+  IconSettings2,
 } from '@tabler/icons-react';
+import { Link } from '@inertiajs/react';
 
-const data = [{ link: '', label: 'Dashboard', icon: IconLayoutDashboard }];
+const data = [
+  { link: '/dashboard', label: 'Dashboard', icon: IconLayoutDashboard },
+  { link: '/dashboard/page', label: 'Your Page', icon: IconSettings2 },
+];
 
 export function DashboardSidebar() {
   const [active, setActive] = useState('Billing');
 
   const links = data.map(item => (
-    <a
+    <Link
       className={
         'link flex items-center text-sm text-gray-700 dark:text-gray-100 py-1 px-2 rounded-sm font-medium'
       }
@@ -27,7 +32,6 @@ export function DashboardSidebar() {
       href={item.link}
       key={item.label}
       onClick={event => {
-        event.preventDefault();
         setActive(item.label);
       }}
     >
@@ -36,7 +40,7 @@ export function DashboardSidebar() {
         stroke={1.5}
       />
       <span>{item.label}</span>
-    </a>
+    </Link>
   ));
 
   return (
@@ -45,7 +49,7 @@ export function DashboardSidebar() {
         'navbar min-h-screen w-72 p-4 flex flex-col border-r border-gray-300 bg-white dark:border-gray-600'
       }
     >
-      <div className={'flex-1'}>
+      <div className="flex flex-col gap-3">
         <Group
           className={
             'header pb-4 mb-6 border-b border-gray-300 dark:border-gray-600'

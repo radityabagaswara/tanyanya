@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-@tailwind base;
+@layer {
+    @tailwind base;
+
+}
 @tailwind components;
 @tailwind utilities;
 
@@ -11,6 +14,20 @@ a {
     text-decoration: none;
     @apply text-tanya-pink-3 hover:text-tanya-pink-5;
 }
+
+.form-groups {
+    @apply grid grid-cols-12 items-start gap-2;
+    @apply py-4;
+}
+
+.form-groups .form-title {
+    @apply col-span-12 md:col-span-4;
+}
+
+.form-groups .form-content {
+    @apply col-span-12 md:col-span-8;
+}
+
 
 [x-cloak] {
     display: none;

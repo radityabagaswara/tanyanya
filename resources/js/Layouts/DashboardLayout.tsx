@@ -76,7 +76,7 @@ const DashboardLayout = ({ children }: Props) => {
       <div
         className={`${
           isMobile && !opened ? 'pl-8' : isMobile && opened ? 'pl-8' : 'pl-80'
-        }  pr-8 py-8 bg-gray-50 min-h-screen`}
+        }  pr-8 py-8 bg-white min-h-screen`}
       >
         {children}
       </div>

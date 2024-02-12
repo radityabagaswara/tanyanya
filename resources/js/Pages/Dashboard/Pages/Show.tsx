@@ -11,21 +11,11 @@ interface Props extends PageProps {
 }
 
 const ShowPage = ({ page }: Props) => {
-  console.log(page);
-
   const handleFormSubmit = (e: InertiaFormProps<any>) => {
     e.post('/dashboard/page');
   };
 
-  return (
-    <DashboardLayout>
-      <Card withBorder>
-        <Card.Section p={'lg'}>
-          <EditPageForm page={page} onSubmit={handleFormSubmit} />
-        </Card.Section>
-      </Card>
-    </DashboardLayout>
-  );
+  return <EditPageForm page={page} onSubmit={handleFormSubmit} />;
 };
 
 export default ShowPage;

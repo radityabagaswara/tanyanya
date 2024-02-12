@@ -18,9 +18,6 @@ class DashboardPageController extends Controller
         }
 
         $page = Pages::where('users_id', $request->user()->id)->with("user")->with('socialLinks')->first();
-        $page->update([
-            'bio' => "Hello, ask me anything!",
-        ]);
 
         return Inertia::render('Dashboard/Pages/Show', [
             'page' => $page,
@@ -55,6 +52,7 @@ class DashboardPageController extends Controller
         $page = new Pages();
         $page->username = $request->username;
         $page->users_id = $request->user()->id;
+        $page->bio = "Ask me anything!";
         $page->save();
 
         return redirect()->route('dashboard');

@@ -1,3 +1,4 @@
+import useErrorShake from '@/Hooks/useErrorShake';
 import { useForm } from '@inertiajs/react';
 import { Button, Checkbox, Divider, TextInput } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
@@ -9,8 +10,6 @@ interface Props {
 }
 
 const LoginForm: React.FC<Props> = ({ onSubmit, error, loading = false }) => {
-  const [shake, setShake] = useState(false);
-
   const form = useForm({
     email: '',
     password: '',
@@ -22,16 +21,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit, error, loading = false }) => {
     onSubmit(form);
   };
 
-  useEffect(() => {
-    form.setError(error);
-    setShake(true);
-    const timeout = setTimeout(() => {
-      setShake(false);
-    }, 500);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [error]);
+  const shake = useErrorShake(form.errors);
 
   return (
     <form className="flex flex-col gap-3" onSubmit={formSubmit}>
