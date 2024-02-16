@@ -50,56 +50,63 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col gap-3 justify-center items-center">
-        <Tooltip
-          label="You can change your avatar on your profile"
-          onClick={() => {
-            router.visit('/dashboard/profile');
-          }}
-        >
-          <Avatar
-            className="cursor-pointer"
-            color="tanya-pink"
-            size={'xl'}
-            src={page.user.profile_photo_url}
-          />
-        </Tooltip>
-      </div>
-      <Tooltip
-        label="You can change your page name on your profile"
-        onClick={() => {
-          router.visit('/dashboard/profile');
-        }}
+      <LoadingOverlay visible={form.processing} />
+      <form
+        className="w-full max-w-[900px] flex flex-col gap-3"
+        onSubmit={formSubmit}
       >
-        <p className="text-center mt-1">{page.user.name}</p>
-      </Tooltip>
-      <Space m={'md'} />
-
-      <div className="w-full flex justify-center relative">
-        <LoadingOverlay visible={form.processing} />
-        <form
-          className="w-full max-w-[900px] flex flex-col gap-3"
-          onSubmit={formSubmit}
-        >
-          <TextInput
-            label="Username"
-            description="tanyanya.id/username"
-            placeholder="username"
-            defaultValue={form.data.username}
-            onChange={e => form.setData('username', e.target.value)}
-            error={form.errors.username}
-          />
-          <Textarea
-            label="Bio"
-            rows={5}
-            placeholder="Tell your audience about your self"
-            defaultValue={form.data.bio}
-            onChange={e => form.setData('bio', e.target.value)}
-            error={form.errors.bio}
-          />
-          <Divider />
-          <p>Social Media</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="form-groups">
+          <div className="form-title">
+            <h3 className="font-semibold">Profile</h3>
+            <p className="text-sm text-gray-500">
+              You can change your profile on the profile section.
+            </p>
+          </div>
+          <div className="form-content flex flex-row gap-2 items-center">
+            <Avatar
+              src={page.user.profile_photo_url}
+              size={'lg'}
+              color="tanya-pink"
+            />
+            <p>{page.user.name}</p>
+            <Button variant="subtle">Change</Button>
+          </div>
+        </div>
+        <Divider />
+        <div className="form-groups">
+          <div className="form-title">
+            <h3 className="font-semibold">Username</h3>
+          </div>
+          <div className="form-content">
+            <TextInput
+              description="tanyanya.id/username"
+              placeholder="username"
+              defaultValue={form.data.username}
+              onChange={e => form.setData('username', e.target.value)}
+              error={form.errors.username}
+            />
+          </div>
+        </div>
+        <div className="form-groups">
+          <div className="form-title">
+            <h3 className="font-semibold">Bio</h3>
+          </div>
+          <div className="form-content">
+            <Textarea
+              rows={5}
+              placeholder="Tell your audience about your self"
+              defaultValue={form.data.bio}
+              onChange={e => form.setData('bio', e.target.value)}
+              error={form.errors.bio}
+            />
+          </div>
+        </div>
+        <Divider />
+        <div className="form-groups">
+          <div className="form-title">
+            <h3 className="font-semibold">Social Media</h3>
+          </div>
+          <div className="form-content flex flex-col gap-3">
             <TextInput
               label="Facebook"
               placeholder="https://facebook.com/username"
@@ -201,58 +208,64 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
                 ])
               }
             />
+            {/* @ts-ignore */}
+            {form.errors?.['social_links.0.url'] ? (
+              <p className="text-sm text-red-500">
+                {/* @ts-ignore */}
+                {form.errors['social_links.0.url']}
+              </p>
+            ) : null}
           </div>
-
-          {/* @ts-ignore */}
-          {form.errors?.['social_links.0.url'] ? (
-            <p className="text-sm text-red-500">
-              {/* @ts-ignore */}
-              {form.errors['social_links.0.url']}
-            </p>
-          ) : null}
-
-          <Divider />
-          <p>Page Settings</p>
-          <Switch
-            label="Accepting Question"
-            labelPosition="right"
-            classNames={{ body: 'gap-2' }}
-            defaultChecked={form.data.is_accepting_question}
-            onChange={e =>
-              form.setData('is_accepting_question', e.target.checked)
-            }
-          />
-          <Switch
-            label="Allow Anonymous Question"
-            labelPosition="right"
-            classNames={{ body: 'gap-2' }}
-            defaultChecked={form.data.allow_anon_question}
-            onChange={e =>
-              form.setData('allow_anon_question', e.target.checked)
-            }
-          />
-          <Switch
-            label="Get Notification on New Question"
-            labelPosition="right"
-            classNames={{ body: 'gap-2' }}
-            defaultChecked={form.data.get_notification_on_new_question}
-            onChange={e =>
-              form.setData('get_notification_on_new_question', e.target.checked)
-            }
-          />
-
-          <div className="flex justify-end">
-            <Button
-              radius={'xl'}
-              type="submit"
-              loading={form.processing}
-              className={shake ? 'animate-shake' : ''}
-            >
-              Save Page
-            </Button>
+        </div>
+        <Divider />
+        <div className="form-groups">
+          <div className="form-title">
+            <h3 className="font-semibold">Page Settings</h3>
           </div>
-        </form>
-      </div>
+          <div className="form-content flex flex-col gap-3">
+            <Switch
+              label="Accepting Question"
+              labelPosition="right"
+              classNames={{ body: 'gap-2' }}
+              defaultChecked={form.data.is_accepting_question}
+              onChange={e =>
+                form.setData('is_accepting_question', e.target.checked)
+              }
+            />
+            <Switch
+              label="Allow Anonymous Question"
+              labelPosition="right"
+              classNames={{ body: 'gap-2' }}
+              defaultChecked={form.data.allow_anon_question}
+              onChange={e =>
+                form.setData('allow_anon_question', e.target.checked)
+              }
+            />
+            <Switch
+              label="Get Notification on New Question"
+              labelPosition="right"
+              classNames={{ body: 'gap-2' }}
+              defaultChecked={form.data.get_notification_on_new_question}
+              onChange={e =>
+                form.setData(
+                  'get_notification_on_new_question',
+                  e.target.checked,
+                )
+              }
+            />
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <Button
+            radius={'xl'}
+            type="submit"
+            loading={form.processing}
+            className={shake ? 'animate-shake' : ''}
+          >
+            Save Page
+          </Button>
+        </div>
+      </form>
     </>
   );
 };

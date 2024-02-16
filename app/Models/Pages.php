@@ -28,4 +28,9 @@ class Pages extends Model
         return $this->hasMany(SocialLinks::class, 'pages_id', 'id');
     }
 
+    public function questions()
+    {
+        return $this->hasMany(Questions::class, 'pages_id', 'id');
+    }
+
 }

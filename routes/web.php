@@ -46,3 +46,4 @@ Route::middleware([
 });
 
 Route::get("/{user}", [TanyaController::class, "index"])->name("tanya");
+Route::post("/{page}/tanya", [TanyaController::class, "insert"])->name("tanya.insert");

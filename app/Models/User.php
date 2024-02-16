@@ -78,4 +78,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pages::class, 'users_id', 'id');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Questions::class, 'user_id', 'id');
+    }
+
 }

@@ -16,7 +16,7 @@ a {
 }
 
 .form-groups {
-    @apply grid grid-cols-12 items-start gap-2;
+    @apply grid grid-cols-12 items-start gap-5;
     @apply py-4;
 }
 

@@ -10,8 +10,10 @@ import {
   Divider,
   FileButton,
   Group,
+  LoadingOverlay,
   TextInput,
 } from '@mantine/core';
+import useErrorShake from '@/Hooks/useErrorShake';
 
 interface Props {
   user: any;
@@ -25,6 +27,8 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
     birth_date: user?.birth_date || null,
     photo: null,
   });
+
+  const shake = useErrorShake(form.errors);
 
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,25 +47,31 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
   console.log(user);
   return (
     <form onSubmit={formSubmit} className="flex flex-col gap-3">
+      <LoadingOverlay visible={form.processing} />
       <div className="form-groups">
         <div className="form-title">
           <h3 className="font-semibold">Your Photo</h3>
         </div>
-        <div className="form-content flex flex-row gap-1 items-center">
-          <Avatar src={getPhotoURL()} size={'lg'}></Avatar>
+        <div className="form-content ">
+          <div className="flex flex-row gap-1 items-center">
+            <Avatar src={getPhotoURL()} size={'lg'}></Avatar>
 
-          <FileButton
-            onChange={e => {
-              form.setData('photo', e as any);
-            }}
-            accept="image/png,image/jpeg"
-          >
-            {props => (
-              <Button {...props} variant="transparent">
-                Change Photo
-              </Button>
-            )}
-          </FileButton>
+            <FileButton
+              onChange={e => {
+                form.setData('photo', e as any);
+              }}
+              accept="image/png,image/jpeg"
+            >
+              {props => (
+                <Button {...props} variant="transparent">
+                  Change Photo
+                </Button>
+              )}
+            </FileButton>
+          </div>
+          {form.errors.photo ? (
+            <p className="text-sm text-red-500 mt-1">{form.errors.photo}</p>
+          ) : null}
         </div>
       </div>
       <Divider />
@@ -78,6 +88,7 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
             onChange={e => {
               form.setData('name', e.currentTarget.value);
             }}
+            error={form.errors.name}
           />
         </div>
       </div>
@@ -94,6 +105,7 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
             onChange={e => {
               form.setData('email', e.currentTarget.value);
             }}
+            error={form.errors.email}
           />
         </div>
       </div>
@@ -111,11 +123,17 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
               if (!e) return;
               form.setData('birth_date', format(e, 'yyy-M-d'));
             }}
+            error={form.errors.birth_date}
           />
         </div>
       </div>
-      <div>
-        <Button radius={'lg'} type="submit">
+      <div className="flex justify-end">
+        <Button
+          radius={'lg'}
+          type="submit"
+          loading={form.processing}
+          className={shake ? 'animate-shake' : ''}
+        >
           Save Profile
         </Button>
       </div>
