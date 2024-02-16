@@ -22,6 +22,7 @@ class Pages extends Model
         'is_accepting_question',
         "allow_anon_question",
         'users_id',
+        'price_per_unit',
 
     ];
 
@@ -33,6 +34,11 @@ class Pages extends Model
     public function socialLinks()
     {
         return $this->hasMany(SocialLinks::class, 'pages_id', 'id');
+    }
+
+    public function donations()
+    {
+        return $this->hasMany(Donations::class, 'pages_id', 'id');
     }
 
 }

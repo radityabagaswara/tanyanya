@@ -79,4 +79,9 @@ class User extends Authenticatable
         return $this->hasMany(Pages::class, 'users_id', 'id');
     }
 
+    public function donations()
+    {
+        return $this->hasMany(Donations::class, 'users_id', 'id');
+    }
+
 }

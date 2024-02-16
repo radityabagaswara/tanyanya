@@ -15,12 +15,14 @@ interface Props {
   message: string;
   onSubmit?: (e: any) => void;
   is_anonymous: boolean;
+  page: any;
 }
 
 const TanyaModalForm: React.FC<Props> = ({
   message,
   onSubmit,
   is_anonymous,
+  page,
 }) => {
   const form = useForm({
     message: message || '',
@@ -28,9 +30,8 @@ const TanyaModalForm: React.FC<Props> = ({
     ammount: 1,
   });
 
-  const costPerUnit = 5000;
-
   const { auth }: any = usePage().props;
+  console.log(page);
 
   const RenderUserField = () => {
     if (is_anonymous)
@@ -49,7 +50,7 @@ const TanyaModalForm: React.FC<Props> = ({
             className="border"
           />
         }
-        value={auth.user.name}
+        defaultValue={auth.user.name}
         size="md"
       />
     );
@@ -64,7 +65,8 @@ const TanyaModalForm: React.FC<Props> = ({
         />
         <p>Total Donation</p>
         <p className="font-semibold text-gray-700 mb-2">
-          Rp. {(form.data.ammount * costPerUnit).toLocaleString('ID-id')}
+          Rp.{' '}
+          {(form.data.ammount * page.price_per_unit).toLocaleString('ID-id')}
         </p>
 
         <div className="flex flex-row gap-2 items-center">
@@ -100,7 +102,7 @@ const TanyaModalForm: React.FC<Props> = ({
           </ActionIcon>
         </div>
         <p className="text-sm text-gray-500 mt-2">
-          Rp {costPerUnit.toLocaleString('ID-id')} / Unit
+          Rp {page.price_per_unit.toLocaleString('ID-id')} / Unit
         </p>
       </div>
       <RenderUserField />

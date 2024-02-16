@@ -9,6 +9,7 @@ import {
   FileButton,
   Image,
   LoadingOverlay,
+  NumberInput,
   Space,
   Switch,
   TextInput,
@@ -25,6 +26,7 @@ interface FormProps {
   allow_anon_question: boolean;
   get_notification_on_new_question: boolean;
   header: any;
+  price_per_unit: number;
 }
 
 interface Props {
@@ -43,6 +45,7 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
       ? page.get_notification_on_new_question === 1
       : false,
     header: null,
+    price_per_unit: page?.price_per_unit || 1000,
   });
 
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -90,7 +93,7 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
             <h3 className="font-semibold">Banner</h3>
           </div>
           <div className="form-content ">
-            <div className="flex flex-row gap-1 items-center">
+            <div className="flex flex-row flex-wrap gap-1 items-center">
               {/* <Avatar src={getPhotoURL()} size={'lg'}></Avatar> */}
 
               <img
@@ -266,6 +269,21 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
             <h3 className="font-semibold">Page Settings</h3>
           </div>
           <div className="form-content flex flex-col gap-3">
+            <NumberInput
+              label="Price per Unit"
+              placeholder="1000"
+              hideControls
+              min={1000}
+              max={100000}
+              defaultValue={form.data.price_per_unit}
+              onChange={e =>
+                form.setData('price_per_unit', parseInt(e.toString()))
+              }
+              error={form.errors.price_per_unit}
+              leftSection="Rp"
+              thousandSeparator="."
+              decimalSeparator=","
+            />
             <Switch
               label="Accepting Question"
               labelPosition="right"

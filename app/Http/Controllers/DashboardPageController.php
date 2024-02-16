@@ -77,6 +77,7 @@ class DashboardPageController extends Controller
             'social_links' => 'array',
             'social_links.*.name' => 'string',
             'header' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'price_per_unit' => 'required|numeric|min:1000|max:100000',
             //check social link if it is a valid url for supported social media platforms
             'social_links.*.url' => [
                 'url',
@@ -105,6 +106,8 @@ class DashboardPageController extends Controller
             'bio.max' => 'The bio may not be greater than 160 characters.',
             'header.max' => 'The header image may not be greater than 2MB.',
             'header.mimes' => 'The header image must be a file of type: jpeg, png, jpg.',
+            'price_per_unit.min' => 'The price per unit must be at least Rp 1.000.',
+            'price_per_unit.max' => 'The price per unit may not be greater than Rp 100.000.',
         ]);
 
         if ($page->username != $request->username) {
@@ -117,6 +120,7 @@ class DashboardPageController extends Controller
         $page->bio = $request->bio;
         $page->is_accepting_question = $request->is_accepting_question;
         $page->allow_anon_question = $request->allow_anon_question;
+        $page->price_per_unit = $request->price_per_unit;
 
         //check if user input a header image and save it
         if ($request->hasFile('header')) {

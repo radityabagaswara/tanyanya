@@ -37,7 +37,7 @@ const TanyaForm: React.FC<Props> = ({ page }) => {
             <Overlay color="#fff" backgroundOpacity={0.35} blur={3} />
             <div className="absolute left-0 top-0 w-full h-full flex justify-center items-center z-[10000]">
               <h3 className="font-semibold text-red-500">
-                Creator has turned off the asking function!
+                Creator has turned off this function! Please check later.
               </h3>
             </div>
           </>
@@ -56,7 +56,7 @@ const TanyaForm: React.FC<Props> = ({ page }) => {
             }
             autosize
             minRows={3}
-            placeholder="Write your messages!"
+            placeholder="Write your messages! (Optional)"
             variant="unstyled"
             size="md"
             styles={{
@@ -155,7 +155,11 @@ const TanyaForm: React.FC<Props> = ({ page }) => {
         size={'lg'}
         radius={'md'}
       >
-        <TanyaModalForm is_anonymous={isAnonymous} message={message} />
+        <TanyaModalForm
+          is_anonymous={isAnonymous}
+          message={message}
+          page={page}
+        />
       </Modal>
     </>
   );
