@@ -6,6 +6,8 @@ import {
   Avatar,
   Button,
   Divider,
+  FileButton,
+  Image,
   LoadingOverlay,
   Space,
   Switch,
@@ -22,6 +24,7 @@ interface FormProps {
   is_accepting_question: boolean;
   allow_anon_question: boolean;
   get_notification_on_new_question: boolean;
+  header: any;
 }
 
 interface Props {
@@ -39,6 +42,7 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
     get_notification_on_new_question: page
       ? page.get_notification_on_new_question === 1
       : false,
+    header: null,
   });
 
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,6 +51,15 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
   };
 
   const shake = useErrorShake(form.errors);
+
+  const getPhotoURL = () => {
+    if (form.data.header) {
+      return URL.createObjectURL(form.data.header as any);
+    }
+    return page.header_url;
+  };
+
+  console.log(page);
 
   return (
     <>
@@ -70,6 +83,36 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
             />
             <p>{page.user.name}</p>
             <Button variant="subtle">Change</Button>
+          </div>
+        </div>
+        <div className="form-groups">
+          <div className="form-title">
+            <h3 className="font-semibold">Banner</h3>
+          </div>
+          <div className="form-content ">
+            <div className="flex flex-row gap-1 items-center">
+              {/* <Avatar src={getPhotoURL()} size={'lg'}></Avatar> */}
+
+              <img
+                className="w-[400px] aspect-[121/30] object-cover rounded-2xl border"
+                src={getPhotoURL()}
+              />
+              <FileButton
+                onChange={e => {
+                  form.setData('header', e as any);
+                }}
+                accept="image/png,image/jpeg"
+              >
+                {props => (
+                  <Button {...props} variant="transparent">
+                    Change Banner
+                  </Button>
+                )}
+              </FileButton>
+            </div>
+            {form.errors.header ? (
+              <p className="text-sm text-red-500 mt-1">{form.errors.header}</p>
+            ) : null}
           </div>
         </div>
         <Divider />
@@ -261,6 +304,7 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
             type="submit"
             loading={form.processing}
             className={shake ? 'animate-shake' : ''}
+            disabled={!form.isDirty}
           >
             Save Page
           </Button>

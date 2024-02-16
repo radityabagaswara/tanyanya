@@ -129,6 +129,7 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
       </div>
       <div className="flex justify-end">
         <Button
+          disabled={!form.isDirty}
           radius={'lg'}
           type="submit"
           loading={form.processing}

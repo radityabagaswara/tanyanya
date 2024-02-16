@@ -1,4 +1,4 @@
-import { ActionIcon, Avatar } from '@mantine/core';
+import { ActionIcon, Avatar, Image, Space } from '@mantine/core';
 import {
   IconBrandDiscordFilled,
   IconBrandFacebookFilled,
@@ -16,9 +16,24 @@ interface Props {
 const TanyaProfile: React.FC<Props> = ({ page }) => {
   return (
     <div className="flex flex-col items-center mt-12 lg:mt-24">
-      <Avatar src={page.user.profile_photo_url} size={'xl'}>
-        {page.user.name[0]}
-      </Avatar>
+      <div className="relative w-full">
+        <Image
+          w={'100%'}
+          src={page.header_url}
+          styles={{ root: { aspectRatio: '121/30' } }}
+          radius={'lg'}
+        />
+        <div className="absolute w-full flex justify-center -bottom-10">
+          <Avatar
+            src={page.user.profile_photo_url}
+            size={100}
+            className="border"
+          >
+            {page.user.name[0]}
+          </Avatar>
+        </div>
+      </div>
+      <Space h={40} />
       <h1 className="text-xl font-semibold mt-3">{page.user.name}</h1>
       <h2 className="text-sm text-gray-500">@{page.username}</h2>
       <p className="mt-1">{page.bio}</p>

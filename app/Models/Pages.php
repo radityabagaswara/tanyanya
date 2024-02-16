@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\AppendPageBannerURL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,7 +10,13 @@ class Pages extends Model
 {
     use HasFactory;
 
+    protected static function booted()
+    {
+        static::addGlobalScope(new AppendPageBannerURL);
+    }
+
     protected $fillable = [
+        'header',
         'username',
         'bio',
         'is_accepting_question',
@@ -26,11 +33,6 @@ class Pages extends Model
     public function socialLinks()
     {
         return $this->hasMany(SocialLinks::class, 'pages_id', 'id');
-    }
-
-    public function questions()
-    {
-        return $this->hasMany(Questions::class, 'pages_id', 'id');
     }
 
 }

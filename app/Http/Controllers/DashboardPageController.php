@@ -6,6 +6,7 @@ use App\Models\Pages;
 use App\Models\SocialLinks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class DashboardPageController extends Controller
@@ -75,6 +76,8 @@ class DashboardPageController extends Controller
             'allow_anon_question' => 'boolean',
             'social_links' => 'array',
             'social_links.*.name' => 'string',
+            'header' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            //check social link if it is a valid url for supported social media platforms
             'social_links.*.url' => [
                 'url',
                 function ($attribute, $value, $fail) {
@@ -100,6 +103,8 @@ class DashboardPageController extends Controller
         ], [
             'username.regex' => 'The username may only contain letters and numbers.',
             'bio.max' => 'The bio may not be greater than 160 characters.',
+            'header.max' => 'The header image may not be greater than 2MB.',
+            'header.mimes' => 'The header image must be a file of type: jpeg, png, jpg.',
         ]);
 
         if ($page->username != $request->username) {
@@ -112,8 +117,25 @@ class DashboardPageController extends Controller
         $page->bio = $request->bio;
         $page->is_accepting_question = $request->is_accepting_question;
         $page->allow_anon_question = $request->allow_anon_question;
+
+        //check if user input a header image and save it
+        if ($request->hasFile('header')) {
+            $file = $request->file('header');
+            $file_name = $page->username . "_" . time() . "." . $file->getClientOriginalExtension();
+            $file_path = "tanyanya/pages/banners";
+            Storage::putFileAs($file_path, $file, $file_name);
+
+            //delete the old banner
+            if ($page->header) {
+                Storage::delete($file_path . "/" . $page->header);
+            }
+
+            $page->header = $file_name;
+        }
+
         $page->save();
 
+        //if there is social links, then save it
         if ($request->social_links) {
             SocialLinks::where('pages_id', $page->id)->delete();
 

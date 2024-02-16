@@ -28,6 +28,9 @@ const TanyaPage = ({ page, auth }: Props) => {
         <div className="mt-8 ">
           <TanyaForm page={page} />
         </div>
+        <div className="mt-8">
+          <h2 className="font-semibold text-xl">Recent Supporter</h2>
+        </div>
       </div>
     </MainLayout>
   );
