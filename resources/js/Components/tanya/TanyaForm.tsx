@@ -12,14 +12,16 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
 import TanyaModalForm from './TanyaModalForm';
+import { InertiaFormProps } from '@inertiajs/react/types/useForm';
 
 interface Props {
   page: any;
+  onSubmit?: (e: InertiaFormProps<any>) => void;
 }
 
 const maxLine = 180;
 
-const TanyaForm: React.FC<Props> = ({ page }) => {
+const TanyaForm: React.FC<Props> = ({ page, onSubmit }) => {
   const { auth }: any = usePage().props;
   const [isAnonymous, setIsAnonymous] = React.useState<boolean>(
     auth.user ? false : true,
@@ -159,6 +161,7 @@ const TanyaForm: React.FC<Props> = ({ page }) => {
           is_anonymous={isAnonymous}
           message={message}
           page={page}
+          onSubmit={onSubmit}
         />
       </Modal>
     </>

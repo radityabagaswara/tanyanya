@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardPageController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TanyaController;
 use App\Http\Controllers\UserDashboardController;
@@ -46,3 +47,4 @@ Route::middleware([
 });
 
 Route::get("/{user}", [TanyaController::class, "index"])->name("tanya");
+Route::post("/{page}/donate", [DonationController::class, "newDono"])->name("tanya.donate");

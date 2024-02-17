@@ -1,0 +1,4 @@
+const MIDTRANS_API_URL = '';
+const MIDTRANS_CLIENT_KEY = '';
+
+export { MIDTRANS_API_URL, MIDTRANS_CLIENT_KEY };

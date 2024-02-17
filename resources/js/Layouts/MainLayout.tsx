@@ -1,15 +1,23 @@
 import { HomeNavBar } from '@/Components/navigation/HomeNavbar';
+import { LoadingOverlay } from '@mantine/core';
 import React from 'react';
 
 interface props {
   children: React.ReactNode;
   className?: string;
   withContainer?: boolean;
+  loading?: boolean;
 }
 
-const MainLayout = ({ children, withContainer = true, className }: props) => {
+const MainLayout = ({
+  children,
+  withContainer = true,
+  className,
+  loading = false,
+}: props) => {
   return (
     <>
+      <LoadingOverlay visible={loading} />
       <HomeNavBar />
       <main
         className={`mt-8 ${

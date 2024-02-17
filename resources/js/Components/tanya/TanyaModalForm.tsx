@@ -26,12 +26,11 @@ const TanyaModalForm: React.FC<Props> = ({
 }) => {
   const form = useForm({
     message: message || '',
-    is_anonymous: is_anonymous || false,
+    is_anon: is_anonymous || false,
     ammount: 1,
   });
 
   const { auth }: any = usePage().props;
-  console.log(page);
 
   const RenderUserField = () => {
     if (is_anonymous)
@@ -57,7 +56,13 @@ const TanyaModalForm: React.FC<Props> = ({
   };
 
   return (
-    <form className="flex flex-col gap-3">
+    <form
+      className="flex flex-col gap-3"
+      onSubmit={e => {
+        e.preventDefault();
+        onSubmit && onSubmit(form);
+      }}
+    >
       <div className="flex flex-col items-center justify-center">
         <img
           className="w-48 aspect-square object-cover"
@@ -116,7 +121,9 @@ const TanyaModalForm: React.FC<Props> = ({
         value={form.data.message}
         maxLength={180}
       />
-      <Button mt={'sm'}>Support Creator</Button>
+      <Button mt={'sm'} type="submit">
+        Support Creator
+      </Button>
     </form>
   );
 };
