@@ -72,6 +72,7 @@ class DonationController extends Controller
             'transaction_time' => null,
             'users_id' => $request->user()->id,
             'snap_token' => $snap_token,
+            'price' => $total_price,
         ]);
 
         return Redirect::back()->with("snap_token", $snap_token);

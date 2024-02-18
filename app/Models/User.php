@@ -4,10 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\Scopes\AppendUserPhotoURL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -52,27 +52,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected static function booted()
-    {
-        static::addGlobalScope(new AppendUserPhotoURL);
-    }
-    /**
-     * @return string
-     */
-    // public function defaultProfilePhotoUrl()
-    // {
-    //     if ($this->profile_photo_path) {
-    //         return "https://is3.idcloud.host.id/velcro/" . $this->profile_photo_path;
-    //     }
+    protected $appends = ['profile_photo_url'];
 
-    //     // Generate a default profile photo URL using the user's name
-    //     return 'https://ui-avatars.com/api/' . implode('/', [
-    //         urlencode($this->name), // Name
-    //         200, // Image size
-    //         'FEEEF3', // Background color
-    //         'F5487F', // Font color
-    //     ]);
-    // }
+    public function getProfilePhotoUrlAttribute()
+    {
+        if ($this->profile_photo_path) {
+            return Storage::url("tanyanya/profile/") . $this->profile_photo_path;
+        }
+
+        // Generate a default profile photo URL using the user's name
+        return 'https://ui-avatars.com/api/' . implode('/', [
+            urlencode($this->name), // Name
+            200, // Image size
+            'FEEEF3', // Background color
+            'F5487F', // Font color
+        ]);
+    }
 
     public function pages()
     {

@@ -21,6 +21,7 @@ class Donations extends Model
         'pages_id',
         'users_id',
         'snap_token',
+        'price',
     ];
 
     public function pages()

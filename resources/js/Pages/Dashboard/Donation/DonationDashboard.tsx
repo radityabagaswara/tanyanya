@@ -2,13 +2,14 @@ import DashboardTabs from '@/Components/DashboardTab';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import { usePage } from '@inertiajs/react';
 import React from 'react';
+import DonationList from './DonationList';
+import { Card } from '@mantine/core';
 
 interface Props {
   donation: any;
 }
 
 const DonationDashboard = ({ donation }: Props) => {
-  console.log(donation);
   return (
     <DashboardLayout title="Donations">
       <DashboardTabs
@@ -17,9 +18,9 @@ const DonationDashboard = ({ donation }: Props) => {
             name: 'Donations',
             key: 'donations',
             content: (
-              <div>
-                <h1>Donations</h1>
-              </div>
+              <Card withBorder radius={'lg'}>
+                <DonationList />
+              </Card>
             ),
           },
           {

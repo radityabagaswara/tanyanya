@@ -2,18 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\AppendPageBannerURL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Pages extends Model
 {
     use HasFactory;
-
-    protected static function booted()
-    {
-        static::addGlobalScope(new AppendPageBannerURL);
-    }
 
     protected $fillable = [
         'header',
@@ -25,6 +20,18 @@ class Pages extends Model
         'price_per_unit',
 
     ];
+
+    protected $appends = ['header_url'];
+
+    public function getHeaderURLAttribute()
+    {
+        if ($this->header) {
+            return Storage::url("tanyanya/pages/banners/") . $this->header;
+        }
+
+        // Generate a default profile photo URL using the user's name
+        return 'https://placehold.co/600x400?text=Header';
+    }
 
     public function user()
     {
