@@ -62,11 +62,8 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
     return page.header_url;
   };
 
-  console.log(page);
-
   return (
     <>
-      <LoadingOverlay visible={form.processing} />
       <form
         className="w-full max-w-[900px] flex flex-col gap-3"
         onSubmit={formSubmit}

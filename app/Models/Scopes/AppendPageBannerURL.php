@@ -14,12 +14,10 @@ class AppendPageBannerURL implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->addSelect([$model->getTable() . '.*']);
-        $builder->selectSub(
-            "CASE
+        $builder->addSelect([
+            'header_url' => "CASE
                 WHEN {$model->getTable()}.header IS NOT NULL THEN CONCAT('" . Storage::url("tanyanya/pages/banners/") . "', {$model->getTable()}.header)
-                ELSE CONCAT('https://placehold.co/726x180?text=Header') END",
-            'header_url'
-        );
+                ELSE 'https://placehold.co/726x180?text=Header' END",
+        ]);
     }
 }

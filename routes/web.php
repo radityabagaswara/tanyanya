@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardDonationController;
 use App\Http\Controllers\DashboardPageController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
@@ -43,6 +44,8 @@ Route::middleware([
 
     Route::get("/dashboard/settings", [UserSettingsController::class, "index"])->name("dashboard.settings");
     Route::post("/dashboard/profile", [ProfileController::class, "update"])->name("dashboard.profile.update");
+
+    Route::get("/dashboard/donations", [DashboardDonationController::class, "index"])->name("dashboard.donation");
 
 });
 

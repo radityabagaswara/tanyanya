@@ -1,16 +1,18 @@
 import FlashMessage from '@/Components/FlashMessage';
 import { DashboardSidebar } from '@/Components/navigation/DashboardSidebar';
 import { usePage } from '@inertiajs/react';
-import { ActionIcon, Burger } from '@mantine/core';
+import { ActionIcon, Burger, LoadingOverlay, Space } from '@mantine/core';
 import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import React, { useEffect, useState } from 'react';
 
 interface Props {
   children: React.ReactNode;
+  title?: string;
+  loading?: boolean;
 }
 
-const DashboardLayout = ({ children }: Props) => {
+const DashboardLayout = ({ children, title, loading }: Props) => {
   const [isMobile, setIsMobile] = useState(false);
   const [opened, { open, close, toggle }] = useDisclosure();
   const { width } = useViewportSize();
@@ -45,6 +47,7 @@ const DashboardLayout = ({ children }: Props) => {
 
   return (
     <>
+      <LoadingOverlay visible={loading} />
       <FlashMessage />
       {isMobile ? (
         <div
@@ -78,6 +81,12 @@ const DashboardLayout = ({ children }: Props) => {
           isMobile && !opened ? 'pl-8' : isMobile && opened ? 'pl-8' : 'pl-80'
         }  pr-8 py-8 bg-white min-h-screen`}
       >
+        {title ? (
+          <>
+            <h1 className="text-xl font-semibold">{title}</h1>
+            <Space h="md" />{' '}
+          </>
+        ) : null}
         {children}
       </div>
     </>

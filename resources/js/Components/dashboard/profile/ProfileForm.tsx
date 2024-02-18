@@ -47,7 +47,6 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
   console.log(user);
   return (
     <form onSubmit={formSubmit} className="flex flex-col gap-3">
-      <LoadingOverlay visible={form.processing} />
       <div className="form-groups">
         <div className="form-title">
           <h3 className="font-semibold">Your Photo</h3>

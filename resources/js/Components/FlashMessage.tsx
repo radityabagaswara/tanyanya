@@ -6,7 +6,6 @@ const FlashMessage = () => {
   const { flash }: any = usePage().props;
 
   useEffect(() => {
-    console.log(flash);
     if (flash.success) {
       notifications.show({
         title: flash.success.title,

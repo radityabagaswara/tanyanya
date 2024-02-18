@@ -14,12 +14,11 @@ class AppendUserPhotoURL implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->addSelect([$model->getTable() . '.*']);
-        $builder->selectSub(
+        $builder->addSelect([
             "CASE
                 WHEN {$model->getTable()}.profile_photo_path IS NOT NULL THEN CONCAT('" . Storage::url("tanyanya/profile/") . "', {$model->getTable()}.profile_photo_path)
                 ELSE CONCAT('https://ui-avatars.com/api/', MD5(SUBSTRING({$model->getTable()}.name, 1, 1)), '?d=mp') END",
-            'profile_photo_url'
+            'profile_photo_url']
         );
     }
 }

@@ -1,10 +1,11 @@
+import DashboardTabs from '@/Components/DashboardTab';
 import EditPageForm from '@/Components/dashboard/pages/forms/EditPageForm';
 import ProfileForm from '@/Components/dashboard/profile/ProfileForm';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import { PageProps } from '@inertiajs/core';
 import { InertiaFormProps } from '@inertiajs/react/types/useForm';
 import { Space, Tabs } from '@mantine/core';
-import React from 'react';
+import React, { useState } from 'react';
 import route from 'ziggy-js';
 
 interface Props extends PageProps {
@@ -13,31 +14,41 @@ interface Props extends PageProps {
 }
 
 const SettingsPage = ({ page, user }: Props) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const handleFormPageSubmit = (e: InertiaFormProps<any>) => {
-    e.post('/dashboard/page');
+    setLoading(true);
+    e.post('/dashboard/page', {
+      onFinish: () => setLoading(false),
+    });
   };
 
   const handleFormProfileSubmit = (e: InertiaFormProps<any>) => {
-    console.log(e);
-    e.post(route('dashboard.profile.update'));
+    setLoading(true);
+    e.post(route('dashboard.profile.update'), {
+      onFinish: () => setLoading(false),
+    });
   };
 
   return (
-    <DashboardLayout>
-      <h1 className="text-xl font-semibold">Settings</h1>
-      <Space h="md" />
-      <Tabs variant="outline" radius={'md'} defaultValue={'profile'}>
-        <Tabs.List>
-          <Tabs.Tab value="profile">Profile</Tabs.Tab>
-          <Tabs.Tab value="page">Page</Tabs.Tab>
-        </Tabs.List>
-        <Tabs.Panel value="profile" className="py-4">
-          <ProfileForm user={user} onSubmit={handleFormProfileSubmit} />
-        </Tabs.Panel>
-        <Tabs.Panel value="page" className="py-4">
-          <EditPageForm page={page} onSubmit={handleFormPageSubmit} />
-        </Tabs.Panel>
-      </Tabs>
+    <DashboardLayout title="Settings" loading={loading}>
+      <DashboardTabs
+        tabs={[
+          {
+            name: 'Profile',
+            key: 'profile',
+            content: (
+              <ProfileForm user={user} onSubmit={handleFormProfileSubmit} />
+            ),
+          },
+          {
+            name: 'Page',
+            key: 'page',
+            content: (
+              <EditPageForm page={page} onSubmit={handleFormPageSubmit} />
+            ),
+          },
+        ]}
+      />
     </DashboardLayout>
   );
 };
