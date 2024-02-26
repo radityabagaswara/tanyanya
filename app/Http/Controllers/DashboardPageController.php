@@ -72,8 +72,8 @@ class DashboardPageController extends Controller
         $request->validate([
             'username' => ['required', 'string', 'min:5', 'max:10', 'regex:/^[a-zA-Z0-9]+$/'],
             'bio' => 'nullable|string|max:160',
-            'is_accepting_question' => 'boolean',
-            'allow_anon_question' => 'boolean',
+            'is_accepting_donor' => 'boolean',
+            'allow_anon_dono' => 'boolean',
             'social_links' => 'array',
             'social_links.*.name' => 'string',
             'header' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
@@ -118,8 +118,8 @@ class DashboardPageController extends Controller
 
         $page->username = $request->username;
         $page->bio = $request->bio;
-        $page->is_accepting_question = $request->is_accepting_question;
-        $page->allow_anon_question = $request->allow_anon_question;
+        $page->is_accepting_dono = $request->is_accepting_dono;
+        $page->allow_anon_dono = $request->allow_anon_dono;
         $page->price_per_unit = $request->price_per_unit;
 
         //check if user input a header image and save it

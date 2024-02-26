@@ -1,22 +1,13 @@
+import DonationCard from '@/Components/tanya/DonationCard';
 import TanyaForm from '@/Components/tanya/TanyaForm';
 import TanyaProfile from '@/Components/tanya/TanyaProfile';
 import useSnap from '@/Hooks/useSnap';
 import MainLayout from '@/Layouts/MainLayout';
 import { Auth } from '@/types';
-import { usePage } from '@inertiajs/react';
 import { InertiaFormProps } from '@inertiajs/react/types/useForm';
-import {
-  Button,
-  Card,
-  Divider,
-  Modal,
-  Overlay,
-  Switch,
-  Textarea,
-  Tooltip,
-} from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Modal } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import axios from 'axios';
 
 import React, { useEffect, useState } from 'react';
 import route from 'ziggy-js';
@@ -27,10 +18,10 @@ interface Props {
 }
 
 const TanyaPage = ({ page, auth }: Props) => {
-  const [isAnonymous, setIsAnonymous] = useState<boolean>(true);
   const [snapToken, setSnapToken] = useState<string>('');
   const { snapEmbed } = useSnap();
   const [loading, setLoading] = useState<boolean>(false);
+  const [recentDono, setRecentDono] = useState<any | null>(null);
 
   const submitDono = (e: InertiaFormProps<any>) => {
     setLoading(true);
@@ -79,6 +70,20 @@ const TanyaPage = ({ page, auth }: Props) => {
     }, 500);
   }, [snapToken]);
 
+  useEffect(() => {
+    axios
+      .get(`/api/tanya/${page.id}/recent`)
+      .then(res => {
+        setRecentDono(res.data);
+      })
+      .catch(err => {
+        notifications.show({
+          title: 'Error',
+          message: 'Failed to fetch recent dono.',
+        });
+      });
+  }, []);
+
   return (
     <MainLayout loading={loading}>
       <div className="max-w-3xl mx-auto">
@@ -89,6 +94,19 @@ const TanyaPage = ({ page, auth }: Props) => {
         <div className="mt-8">
           <h2 className="font-semibold text-xl">Recent Supporter</h2>
         </div>
+        <div className="flex flex-col gap-5 mt-5">
+          {recentDono
+            ? recentDono.data.map((value: any, index: any) => {
+                return (
+                  <DonationCard
+                    donation={value}
+                    key={index}
+                    pagename={page.user.name}
+                  />
+                );
+              })
+            : null}
+        </div>
       </div>
 
       <Modal
@@ -97,13 +115,14 @@ const TanyaPage = ({ page, auth }: Props) => {
         closeOnEscape={false}
         closeOnClickOutside={false}
         withCloseButton={false}
-        w={320}
-        h={560}
         classNames={{ body: 'p-0' }}
         radius={'lg'}
+        size={320}
         centered
       >
-        <div id="snap-embed" className="w-full h-full"></div>
+        <div className="w-[320px] h-[560px]">
+          <div id="snap-embed" className="w-full h-full"></div>
+        </div>
       </Modal>
     </MainLayout>
   );

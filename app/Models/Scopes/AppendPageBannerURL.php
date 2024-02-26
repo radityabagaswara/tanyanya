@@ -14,7 +14,7 @@ class AppendPageBannerURL implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->addSelect([$model->getTable() . '.*']);
+        $builder->addSelect([$model->getTable() . '.header']);
         $builder->selectSub(
             "CASE
                 WHEN {$model->getTable()}.header IS NOT NULL THEN CONCAT('" . Storage::url("tanyanya/pages/banners/") . "', {$model->getTable()}.header)

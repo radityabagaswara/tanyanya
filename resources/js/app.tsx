@@ -51,6 +51,7 @@ createInertiaApp({
             primaryShade: 3,
 
             fontFamily: 'Inter, sans-serif',
+            defaultRadius: 'md',
           }}
         >
           <Notifications />

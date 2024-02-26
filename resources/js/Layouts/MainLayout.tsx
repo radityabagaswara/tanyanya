@@ -19,13 +19,15 @@ const MainLayout = ({
     <>
       <LoadingOverlay visible={loading} />
       <HomeNavBar />
-      <main
-        className={`mt-8 ${
-          withContainer ? 'container px-4 mx-auto' : ''
-        } ${className}`}
-      >
-        {children}
-      </main>
+      <div className="bg-gray-50">
+        <main
+          className={`mt-8 ${
+            withContainer ? 'container px-4 mx-auto' : ''
+          } ${className} `}
+        >
+          {children}
+        </main>
+      </div>
     </>
   );
 };

@@ -33,7 +33,7 @@ class DonationController extends Controller
         );
 
         // check if page is accepting donations
-        if (!$page->is_accepting_question) {
+        if (!$page->is_accepting_dono) {
             return redirect()->back()->withErrors(['error' => 'This page is not accepting donations.']);
         }
 

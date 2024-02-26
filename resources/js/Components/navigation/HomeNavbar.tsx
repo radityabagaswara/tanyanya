@@ -20,7 +20,7 @@ export function HomeNavBar() {
   const page = useTypedPage();
 
   return (
-    <Box className=" border-b border-gray-300 dark:border-gray-600">
+    <Box className=" border-b border-gray-300 dark:border-gray-600 fixed top-0 w-full z-40 bg-white">
       <header className={'container mx-auto h-16 px-4'}>
         <Group justify="space-between" h="100%">
           <Image

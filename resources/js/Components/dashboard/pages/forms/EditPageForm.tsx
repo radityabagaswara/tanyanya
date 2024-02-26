@@ -22,8 +22,8 @@ interface FormProps {
   username: string;
   bio: string;
   social_links: any[];
-  is_accepting_question: boolean;
-  allow_anon_question: boolean;
+  is_accepting_dono: boolean;
+  allow_anon_dono: boolean;
   get_notification_on_new_question: boolean;
   header: any;
   price_per_unit: number;
@@ -39,8 +39,8 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
     username: page?.username || '',
     bio: page?.bio || '',
     social_links: page?.social_links || [],
-    is_accepting_question: page ? page.is_accepting_question === 1 : false,
-    allow_anon_question: page ? page.allow_anon_question === 1 : false,
+    is_accepting_dono: page ? page.is_accepting_dono === 1 : false,
+    allow_anon_dono: page ? page.allow_anon_dono === 1 : false,
     get_notification_on_new_question: page
       ? page.get_notification_on_new_question === 1
       : false,
@@ -285,19 +285,17 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
               label="Accepting Question"
               labelPosition="right"
               classNames={{ body: 'gap-2' }}
-              defaultChecked={form.data.is_accepting_question}
+              defaultChecked={form.data.is_accepting_dono}
               onChange={e =>
-                form.setData('is_accepting_question', e.target.checked)
+                form.setData('is_accepting_dono', e.target.checked)
               }
             />
             <Switch
               label="Allow Anonymous Question"
               labelPosition="right"
               classNames={{ body: 'gap-2' }}
-              defaultChecked={form.data.allow_anon_question}
-              onChange={e =>
-                form.setData('allow_anon_question', e.target.checked)
-              }
+              defaultChecked={form.data.allow_anon_dono}
+              onChange={e => form.setData('allow_anon_dono', e.target.checked)}
             />
             <Switch
               label="Get Notification on New Question"

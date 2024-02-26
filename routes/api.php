@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardDonationController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\TanyaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/', function () {
     return response()->json(['message' => 'Hello World!'], 200);
 });
+
+Route::get("/tanya/{page_id}/recent", [TanyaController::class, "get_recent_dono"]);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard/donationList', [DashboardDonationController::class, 'getDataAPI'])->name('api.dashboard.donationList');

@@ -34,7 +34,7 @@ const TanyaForm: React.FC<Props> = ({ page, onSubmit }) => {
   return (
     <>
       <Card withBorder bg={'white'} radius={'md'} className="relative">
-        {page.is_accepting_question ? null : (
+        {page.is_accepting_dono ? null : (
           <>
             <Overlay color="#fff" backgroundOpacity={0.35} blur={3} />
             <div className="absolute left-0 top-0 w-full h-full flex justify-center items-center z-[10000]">
