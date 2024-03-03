@@ -27,7 +27,7 @@ const TanyaModalForm: React.FC<Props> = ({
   const form = useForm({
     message: message || '',
     is_anon: is_anonymous || false,
-    ammount: 1,
+    amount: 1,
   });
 
   const { auth }: any = usePage().props;
@@ -70,8 +70,7 @@ const TanyaModalForm: React.FC<Props> = ({
         />
         <p>Total Donation</p>
         <p className="font-semibold text-gray-700 mb-2">
-          Rp.{' '}
-          {(form.data.ammount * page.price_per_unit).toLocaleString('ID-id')}
+          Rp. {(form.data.amount * page.price_per_unit).toLocaleString('ID-id')}
         </p>
 
         <div className="flex flex-row gap-2 items-center">
@@ -79,8 +78,8 @@ const TanyaModalForm: React.FC<Props> = ({
             radius={'xl'}
             variant="outline"
             onClick={() => {
-              if (form.data.ammount > 1)
-                form.setData('ammount', form.data.ammount - 1);
+              if (form.data.amount > 1)
+                form.setData('amount', form.data.amount - 1);
             }}
           >
             <IconMinus />
@@ -90,17 +89,17 @@ const TanyaModalForm: React.FC<Props> = ({
             className="w-14"
             classNames={{ input: 'text-center' }}
             min={1}
-            value={form.data.ammount}
+            value={form.data.amount}
             onChange={value => {
               if (!value || parseInt(value.toString()) <= 0)
-                return form.setData('ammount', 1);
-              form.setData('ammount', parseInt(value.toString()));
+                return form.setData('amount', 1);
+              form.setData('amount', parseInt(value.toString()));
             }}
           />
           <ActionIcon
             radius={'xl'}
             onClick={() => {
-              form.setData('ammount', form.data.ammount + 1);
+              form.setData('amount', form.data.amount + 1);
             }}
           >
             <IconPlus />

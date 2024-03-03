@@ -77,7 +77,7 @@ const DonationList = () => {
           ),
       },
       {
-        accessorKey: 'ammount',
+        accessorKey: 'amount',
         enableFilters: false,
         header: 'Amount',
         accessorFn: (originalRow: any) => (
@@ -89,7 +89,7 @@ const DonationList = () => {
               fit="cover"
             />
             <div>
-              <p className="font-semibold">{originalRow.ammount ?? 0} unit</p>
+              <p className="font-semibold">{originalRow.amount ?? 0} unit</p>
               <p>Rp {originalRow.price.toLocaleString('ID-id')}</p>
             </div>
           </div>

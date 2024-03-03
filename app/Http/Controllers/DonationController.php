@@ -23,12 +23,12 @@ class DonationController extends Controller
 
         $request->validate(
             [
-                'ammount' => 'required|numeric|min:1',
+                'amount' => 'required|numeric|min:1',
                 'message' => 'nullable|string',
                 'is_anon' => 'boolean',
             ], [
-                'ammount.min' => 'The minimum donation unit is 1.',
-                'ammount.required' => 'The ammount field is required.',
+                'amount.min' => 'The minimum donation unit is 1.',
+                'amount.required' => 'The amount field is required.',
             ]
         );
 
@@ -38,7 +38,7 @@ class DonationController extends Controller
         }
 
         $transaction_id = "donation-" . time() . "-" . $request->user()->name;
-        $total_price = (int) $request->ammount * $page->price_per_unit;
+        $total_price = (int) $request->amount * $page->price_per_unit;
 
         $payload = [
             'transaction_details' => [
@@ -55,7 +55,7 @@ class DonationController extends Controller
                 [
                     'id' => $page->id,
                     'price' => $page->price_per_unit,
-                    'quantity' => $request->ammount,
+                    'quantity' => $request->amount,
                     'name' => "Donation to " . $page->username . " #" . $page->id,
                 ],
             ],
@@ -64,7 +64,7 @@ class DonationController extends Controller
         $snap_token = \Midtrans\Snap::getSnapToken($payload);
         $page->donations()->create([
             'message' => $request->message,
-            'ammount' => $request->ammount,
+            'amount' => $request->amount,
             'is_anon' => $request->is_anon,
             'transaction_id' => $transaction_id,
             'payment_id' => null,

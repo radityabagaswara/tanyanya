@@ -1,4 +1,5 @@
 import { Avatar, Card, Divider } from '@mantine/core';
+import { format } from 'date-fns';
 import React from 'react';
 
 interface Props {
@@ -17,12 +18,21 @@ const DonationCard: React.FC<Props> = ({ donation, pagename }) => {
       >
         ?
       </Avatar>
-      <Card withBorder>
-        <Card.Section p={'lg'}>
+      <Card
+        withBorder
+        radius={0}
+        classNames={{ root: 'rounded-r-2xl rounded-bl-2xl' }}
+      >
+        <Card.Section p={'md'}>
+          <div>
+            <small className="text-gray-500">
+              {format(new Date(donation.transaction_time), 'd MMM yyyy')}
+            </small>
+          </div>
           <span className="font-semibold">
             {donation.users?.name || 'Anonymous'}{' '}
           </span>
-          donated {donation.ammount} coins to {pagename}!
+          donated {donation.amount} coins to {pagename}!
           {donation.message ? (
             <>
               <Divider my={'md'} />

@@ -120,7 +120,7 @@ const ProfileForm: React.FC<Props> = ({ user, onSubmit }) => {
             valueFormat="DD/MM/YYYY"
             onChange={e => {
               if (!e) return;
-              form.setData('birth_date', format(e, 'yyy-M-d'));
+              form.setData('birth_date', format(e, 'yyy-MM-dd'));
             }}
             error={form.errors.birth_date}
           />
