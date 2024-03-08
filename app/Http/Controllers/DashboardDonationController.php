@@ -57,7 +57,7 @@ class DashboardDonationController extends Controller
         }
 
         $donation = Donations::where('pages_id', $page->id)
-            ->select('ammount', 'price', 'id', 'transaction_status', 'transaction_time', 'message', 'is_anon', 'users_id')
+            ->select('amount', 'price', 'id', 'transaction_status', 'transaction_time', 'message', 'is_anon', 'users_id')
             ->where(function ($query) {
                 $query->where('transaction_status', 'capture')
                     ->orWhere('transaction_status', 'settlement');

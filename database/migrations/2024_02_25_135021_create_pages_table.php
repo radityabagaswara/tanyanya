@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('username', 45);
             $table->text('bio')->nullable();
             $table->bigInteger('price_per_unit')->default(1000);
-            $table->boolean("is_accepting_donor")->default(false);
+            $table->boolean("is_accepting_dono")->default(false);
             $table->boolean("allow_anon_dono")->default(true);
             $table->timestamps();
         });

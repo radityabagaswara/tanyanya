@@ -13,7 +13,7 @@ class Donations extends Model
         'message',
         'answer',
         'is_anon',
-        'ammount',
+        'amount',
         'transaction_status',
         'transaction_time',
         'transaction_id',

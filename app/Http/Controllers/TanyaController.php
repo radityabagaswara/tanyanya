@@ -23,7 +23,7 @@ class TanyaController extends Controller
     public function get_recent_dono(Request $request, $page_id)
     {
         $donations = Donations::where('pages_id', $page_id)
-            ->select('ammount', 'price', 'id', 'transaction_status', 'transaction_time', 'message', 'is_anon', 'users_id')
+            ->select('amount', 'price', 'id', 'transaction_status', 'transaction_time', 'message', 'is_anon', 'users_id')
             ->where(function ($query) {
                 $query->where('transaction_status', 'capture')
                     ->orWhere('transaction_status', 'settlement');

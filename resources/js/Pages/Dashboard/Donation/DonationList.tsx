@@ -90,7 +90,7 @@ const DonationList = () => {
               fit="cover"
             />
             <div>
-              <p className="font-semibold">{originalRow.ammount ?? 0} unit</p>
+              <p className="font-semibold">{originalRow.amount ?? 0} unit</p>
               <p>Rp {originalRow.price.toLocaleString('ID-id')}</p>
             </div>
           </div>

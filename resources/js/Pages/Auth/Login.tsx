@@ -22,7 +22,7 @@ const Register = () => {
   const { errors } = usePage().props;
 
   return (
-    <MainLayout className="flex flex-col items-center justify-center min-h-[80vh]">
+    <MainLayout className="flex flex-col items-center justify-center">
       <h1 className="text-4xl font-semibold text-tanya-pink-3">
         Welcome Back!
       </h1>
@@ -49,7 +49,7 @@ const Register = () => {
           </div>
         </Card.Section>
       </Card>
-      <p className="text-center mt-5 text-sm">
+      <p className="text-center mt-5 text-sm text-gray-500">
         By signing up, you agree to our <Link href="#">Terms of Use</Link> and{' '}
         <Link href="#">Privacy Policy</Link>.
       </p>

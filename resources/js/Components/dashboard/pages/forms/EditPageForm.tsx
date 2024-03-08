@@ -1,6 +1,6 @@
 import useErrorShake from '@/Hooks/useErrorShake';
 import { router } from '@inertiajs/core';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { InertiaFormProps } from '@inertiajs/react/types/useForm';
 import {
   Avatar,
@@ -82,7 +82,9 @@ const EditPageForm = ({ page, onSubmit }: Props) => {
               color="tanya-pink"
             />
             <p>{page.user.name}</p>
-            <Button variant="subtle">Change</Button>
+            <Button variant="subtle" component={Link} href="?tab=profile">
+              Change
+            </Button>
           </div>
         </div>
         <div className="form-groups">
