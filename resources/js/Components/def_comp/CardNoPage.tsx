@@ -3,7 +3,7 @@ import { router } from '@inertiajs/core';
 import { Button, Card, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import React, { useState } from 'react';
-import CreatePageForm from './dashboard/pages/forms/CreatePageForm';
+import CreatePageForm from '../dashboard/pages/forms/CreatePageForm';
 import { usePage } from '@inertiajs/react';
 
 const CardNoPage: React.FC = () => {

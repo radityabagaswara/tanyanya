@@ -1,4 +1,4 @@
-import CardNoPage from '@/Components/CardNoPage';
+import CardNoPage from '@/Components/def_comp/CardNoPage';
 import InboxCard from '@/Components/dashboard/InboxCard';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import { Avatar, Button, Card, Divider } from '@mantine/core';

@@ -21,7 +21,7 @@ const MainLayout = ({
       <HomeNavBar />
       <div className="bg-gray-50">
         <main
-          className={`mt-8 ${
+          className={`py-8 min-h-screen ${
             withContainer ? 'container px-4 mx-auto' : ''
           } ${className} `}
         >

@@ -2,8 +2,8 @@ import { Link, useForm, Head } from '@inertiajs/react';
 import classNames from 'classnames';
 import React from 'react';
 import useRoute from '@/Hooks/useRoute';
-import AuthenticationCard from '@/Components/AuthenticationCard';
-import PrimaryButton from '@/Components/PrimaryButton';
+import AuthenticationCard from '@/Components/def_comp/AuthenticationCard';
+import PrimaryButton from '@/Components/def_comp/PrimaryButton';
 
 interface Props {
   status: string;

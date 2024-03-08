@@ -15,20 +15,21 @@ const DonationList = () => {
     pageCount: 0,
   });
   const [loading, setLoading] = useState(false);
-  const [globalFilter, setGlobalFilter] = useState('');
   const [columnFilters, setColumnFilters] = useState([]);
 
   //FETCH DONATION LIST
   useMemo(() => {
     setDonation([]);
     setLoading(true);
-    console.log(columnFilters);
     axios
       .get(
         route('api.dashboard.donationList', {
           page: pagination.pageIndex + 1,
           rows: pagination.pageSize,
-          search: globalFilter,
+          ...columnFilters.reduce((acc: any, filter: any) => {
+            acc[filter.id] = filter.value;
+            return acc;
+          }, {}),
         }),
       )
       .then(res => {
@@ -49,7 +50,7 @@ const DonationList = () => {
           color: 'red',
         });
       });
-  }, [pagination.pageIndex, pagination.pageSize, globalFilter, columnFilters]);
+  }, [pagination.pageIndex, pagination.pageSize, columnFilters]);
 
   const columns = useMemo<any>(
     () => [
@@ -78,7 +79,7 @@ const DonationList = () => {
       },
       {
         accessorKey: 'ammount',
-        enableFilters: false,
+        enableColumnFilter: false,
         header: 'Amount',
         accessorFn: (originalRow: any) => (
           <div className=" flex flex-row gap-1 items-center">
@@ -98,7 +99,7 @@ const DonationList = () => {
       {
         accessorKey: 'message',
         header: 'Message',
-        enableFilters: false,
+        enableColumnFilter: false,
         accessorFn: (originalRow: any) => originalRow.message,
       },
     ],
@@ -110,18 +111,14 @@ const DonationList = () => {
     onPaginationChange: setPagination,
     onColumnFiltersChange: setColumnFilters as any,
     manualPagination: true,
-    state: { pagination, columnFilters },
+    state: { pagination, columnFilters, isLoading: loading },
     rowCount: pagination.pageCount,
     initialState: {
-      showGlobalFilter: true,
+      showGlobalFilter: false,
     },
+    enableGlobalFilter: false,
     enableSorting: false,
     manualFiltering: true,
-    mantineSearchTextInputProps: {
-      placeholder: `Search for name...`,
-      variant: 'filled',
-    },
-    onGlobalFilterChange: setGlobalFilter,
     mantinePaperProps: { withBorder: false, shadow: 'none' },
     mantinePaginationProps: { rowsPerPageOptions: ['10', '20', '50', '100'] },
     enableRowActions: true,

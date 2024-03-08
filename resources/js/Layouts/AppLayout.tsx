@@ -4,12 +4,12 @@ import classNames from 'classnames';
 import React, { PropsWithChildren, useState } from 'react';
 import useRoute from '@/Hooks/useRoute';
 import useTypedPage from '@/Hooks/useTypedPage';
-import ApplicationMark from '@/Components/ApplicationMark';
-import Banner from '@/Components/Banner';
-import Dropdown from '@/Components/Dropdown';
-import DropdownLink from '@/Components/DropdownLink';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import ApplicationMark from '@/Components/def_comp/ApplicationMark';
+import Banner from '@/Components/def_comp/Banner';
+import Dropdown from '@/Components/def_comp/Dropdown';
+import DropdownLink from '@/Components/def_comp/DropdownLink';
+import NavLink from '@/Components/def_comp/NavLink';
+import ResponsiveNavLink from '@/Components/def_comp/ResponsiveNavLink';
 import { Team } from '@/types';
 
 interface Props {

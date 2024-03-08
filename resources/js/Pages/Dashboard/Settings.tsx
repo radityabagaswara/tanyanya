@@ -1,4 +1,4 @@
-import DashboardTabs from '@/Components/DashboardTab';
+import DashboardTabs from '@/Components/def_comp/DashboardTab';
 import EditPageForm from '@/Components/dashboard/pages/forms/EditPageForm';
 import ProfileForm from '@/Components/dashboard/profile/ProfileForm';
 import DashboardLayout from '@/Layouts/DashboardLayout';

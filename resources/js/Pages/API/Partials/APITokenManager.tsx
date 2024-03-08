@@ -2,19 +2,19 @@ import { useForm } from '@inertiajs/react';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import useRoute from '@/Hooks/useRoute';
-import ActionMessage from '@/Components/ActionMessage';
-import ActionSection from '@/Components/ActionSection';
-import Checkbox from '@/Components/Checkbox';
-import ConfirmationModal from '@/Components/ConfirmationModal';
-import DangerButton from '@/Components/DangerButton';
-import DialogModal from '@/Components/DialogModal';
-import FormSection from '@/Components/FormSection';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import SecondaryButton from '@/Components/SecondaryButton';
-import SectionBorder from '@/Components/SectionBorder';
+import ActionMessage from '@/Components/def_comp/ActionMessage';
+import ActionSection from '@/Components/def_comp/ActionSection';
+import Checkbox from '@/Components/def_comp/Checkbox';
+import ConfirmationModal from '@/Components/def_comp/ConfirmationModal';
+import DangerButton from '@/Components/def_comp/DangerButton';
+import DialogModal from '@/Components/def_comp/DialogModal';
+import FormSection from '@/Components/def_comp/FormSection';
+import InputError from '@/Components/def_comp/InputError';
+import InputLabel from '@/Components/def_comp/InputLabel';
+import PrimaryButton from '@/Components/def_comp/PrimaryButton';
+import TextInput from '@/Components/def_comp/TextInput';
+import SecondaryButton from '@/Components/def_comp/SecondaryButton';
+import SectionBorder from '@/Components/def_comp/SectionBorder';
 import { ApiToken } from '@/types';
 import useTypedPage from '@/Hooks/useTypedPage';
 
@@ -204,9 +204,7 @@ export default function APITokenManager({
                     className="flex items-center justify-between"
                     key={token.id}
                   >
-                    <div className="break-all">
-                      {token.name}
-                    </div>
+                    <div className="break-all">{token.name}</div>
 
                     <div className="flex items-center">
                       {token.last_used_ago && (

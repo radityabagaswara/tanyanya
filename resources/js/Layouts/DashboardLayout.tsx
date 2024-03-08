@@ -1,4 +1,4 @@
-import FlashMessage from '@/Components/FlashMessage';
+import FlashMessage from '@/Components/def_comp/FlashMessage';
 import { DashboardSidebar } from '@/Components/navigation/DashboardSidebar';
 import { usePage } from '@inertiajs/react';
 import { ActionIcon, Burger, LoadingOverlay, Space } from '@mantine/core';

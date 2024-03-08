@@ -5,7 +5,7 @@ import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthe
 import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm';
 import useTypedPage from '@/Hooks/useTypedPage';
-import SectionBorder from '@/Components/SectionBorder';
+import SectionBorder from '@/Components/def_comp/SectionBorder';
 import AppLayout from '@/Layouts/AppLayout';
 import { Session } from '@/types';
 

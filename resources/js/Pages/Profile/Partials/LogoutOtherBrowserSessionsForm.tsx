@@ -2,13 +2,13 @@ import { useForm } from '@inertiajs/react';
 import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
 import useRoute from '@/Hooks/useRoute';
-import ActionMessage from '@/Components/ActionMessage';
-import ActionSection from '@/Components/ActionSection';
-import DialogModal from '@/Components/DialogModal';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import SecondaryButton from '@/Components/SecondaryButton';
+import ActionMessage from '@/Components/def_comp/ActionMessage';
+import ActionSection from '@/Components/def_comp/ActionSection';
+import DialogModal from '@/Components/def_comp/DialogModal';
+import InputError from '@/Components/def_comp/InputError';
+import PrimaryButton from '@/Components/def_comp/PrimaryButton';
+import TextInput from '@/Components/def_comp/TextInput';
+import SecondaryButton from '@/Components/def_comp/SecondaryButton';
 import { Session } from '@/types';
 
 interface Props {

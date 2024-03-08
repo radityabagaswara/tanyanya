@@ -5,9 +5,10 @@ import useSnap from '@/Hooks/useSnap';
 import MainLayout from '@/Layouts/MainLayout';
 import { Auth } from '@/types';
 import { InertiaFormProps } from '@inertiajs/react/types/useForm';
-import { Modal } from '@mantine/core';
+import { Loader, Modal } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import React, { useEffect, useState } from 'react';
 import route from 'ziggy-js';
@@ -84,6 +85,23 @@ const TanyaPage = ({ page, auth }: Props) => {
       });
   }, []);
 
+  const moreDono = () => {
+    axios
+      .get(`/api/tanya/${page.id}/recent?page=${recentDono.current_page + 1}`)
+      .then(res => {
+        setRecentDono({
+          ...res.data,
+          data: [...recentDono.data, ...res.data.data],
+        });
+      })
+      .catch(err => {
+        notifications.show({
+          title: 'Error',
+          message: 'Failed to fetch recent dono.',
+        });
+      });
+  };
+
   return (
     <MainLayout loading={loading}>
       <div className="max-w-3xl mx-auto">
@@ -95,17 +113,27 @@ const TanyaPage = ({ page, auth }: Props) => {
           <h2 className="font-semibold text-xl">Recent Supporter</h2>
         </div>
         <div className="flex flex-col gap-5 mt-5">
-          {recentDono
-            ? recentDono.data.map((value: any, index: any) => {
-                return (
-                  <DonationCard
-                    donation={value}
-                    key={index}
-                    pagename={page.user.name}
-                  />
-                );
-              })
-            : null}
+          {recentDono ? (
+            <InfiniteScroll
+              dataLength={recentDono.data.length}
+              next={moreDono}
+              hasMore={recentDono.current_page < recentDono.last_page}
+              loader={<h4>Loading...</h4>}
+              className="flex flex-col gap-5"
+            >
+              {recentDono.data.map((donation: any, index: number) => (
+                <DonationCard
+                  key={index}
+                  donation={donation}
+                  pagename={page.user.name}
+                />
+              ))}
+            </InfiniteScroll>
+          ) : (
+            <div className="flex justify-center">
+              <Loader variant="bars" />
+            </div>
+          )}
         </div>
       </div>
 

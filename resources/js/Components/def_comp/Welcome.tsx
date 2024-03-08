@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
+import ApplicationLogo from '@/Components/def_comp/ApplicationLogo';
 import useTypedPage from '@/Hooks/useTypedPage';
 
 export default function Welcome() {
