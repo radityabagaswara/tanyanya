@@ -7,6 +7,7 @@ import route from 'ziggy-js';
 
 interface Props {
   tabs: Tab[];
+  currentActive?: string | null;
 }
 
 export interface Tab {
@@ -27,12 +28,12 @@ const RenderTabList = ({ tabs }: Props) => {
   );
 };
 
-const RenderTabContent = ({ tabs }: Props) => {
+const RenderTabContent = ({ tabs, currentActive }: Props) => {
   return (
     <>
       {tabs.map(tab => (
         <Tabs.Panel value={tab.key} className="py-4" key={tab.key}>
-          {tab.content}
+          {currentActive === tab.key && tab.content}
         </Tabs.Panel>
       ))}
     </>
@@ -40,12 +41,14 @@ const RenderTabContent = ({ tabs }: Props) => {
 };
 
 const DashboardTabs: React.FC<Props> = ({ tabs }) => {
-  const [activeTab, setActiveTab] = React.useState(tabs[0].key);
+  const [activeTab, setActiveTab] = React.useState<string | null>(null);
   const props: any = usePage().props;
 
   useEffect(() => {
     if (props.query?.tab) {
       setActiveTab(props.query.tab as string);
+    } else {
+      setActiveTab(tabs[0].key);
     }
   }, [props]);
 
@@ -61,7 +64,7 @@ const DashboardTabs: React.FC<Props> = ({ tabs }) => {
       <Tabs.List>
         <RenderTabList tabs={tabs} />
       </Tabs.List>
-      <RenderTabContent tabs={tabs} />
+      <RenderTabContent tabs={tabs} currentActive={activeTab} />
     </Tabs>
   );
 };

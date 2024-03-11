@@ -78,7 +78,7 @@ const DonationList = () => {
           ),
       },
       {
-        accessorKey: 'ammount',
+        accessorKey: 'amount',
         enableColumnFilter: false,
         header: 'Amount',
         accessorFn: (originalRow: any) => (

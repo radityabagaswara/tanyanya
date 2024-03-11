@@ -1,21 +1,25 @@
-import DashboardTabs from '@/Components/def_comp/DashboardTab';
+import DashboardTabs from '@/Components/DashboardTab';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import { usePage } from '@inertiajs/react';
 import React from 'react';
 import DonationList from './DonationList';
-import { Card } from '@mantine/core';
+import { Card, Space } from '@mantine/core';
 import {
   IconCalendar,
   IconCalendarMonth,
+  IconMedal2,
   IconMoneybag,
+  IconTrophy,
 } from '@tabler/icons-react';
-import { format } from 'date-fns';
+import { differenceInMinutes, format, formatDistance } from 'date-fns';
+import DonationGoals from './DonationGoals';
 
 interface Props {
   donation: any;
   total_donation: number;
   total_donation_this_month: number;
   most_active_donator: any;
+  cache_refresh_in: number;
 }
 
 const DonationDashboard = ({
@@ -23,10 +27,11 @@ const DonationDashboard = ({
   total_donation,
   total_donation_this_month,
   most_active_donator,
+  cache_refresh_in,
 }: Props) => {
   return (
-    <DashboardLayout title="Donations">
-      <div className="grid grid-cols-1 md:grid-cols-3 mb-5 gap-5">
+    <DashboardLayout>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <Card withBorder bg={'white'} radius={'lg'}>
           <Card.Section p={'lg'}>
             <div className="flex flex-row justify-between">
@@ -62,7 +67,7 @@ const DonationDashboard = ({
             <div className="flex flex-row justify-between">
               <p className="text-gray-500">Most Active Donator</p>
               <div className="bg-tanya-pink-3 p-3 rounded-full">
-                <IconCalendarMonth size={24} className="text-white" />
+                <IconTrophy size={24} className="text-white" />
               </div>
             </div>
             <div>
@@ -82,6 +87,14 @@ const DonationDashboard = ({
           </Card.Section>
         </Card>
       </div>
+      <Space m="xs" />
+
+      <small className="text-gray-500">
+        *Stats above will refresh in about{' '}
+        {formatDistance(new Date(cache_refresh_in * 1000), new Date())}
+      </small>
+
+      <Space m="lg" />
 
       <DashboardTabs
         tabs={[
@@ -95,13 +108,9 @@ const DonationDashboard = ({
             ),
           },
           {
-            name: 'Donation Requests',
-            key: 'donation-requests',
-            content: (
-              <div>
-                <h1>Donation Requests</h1>
-              </div>
-            ),
+            name: 'Donation Goals',
+            key: 'donation-Goals',
+            content: <DonationGoals />,
           },
         ]}
       />
