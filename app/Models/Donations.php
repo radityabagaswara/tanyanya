@@ -22,6 +22,7 @@ class Donations extends Model
         'users_id',
         'snap_token',
         'price',
+        'targets_id',
     ];
 
     public function pages()
@@ -32,5 +33,10 @@ class Donations extends Model
     public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function targets()
+    {
+        return $this->belongsTo(Targets::class);
     }
 }

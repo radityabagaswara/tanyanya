@@ -15,7 +15,7 @@ class DashboardPageController extends Controller
     public function show(Request $request)
     {
         if (!Pages::where('users_id', $request->user()->id)->first()) {
-            return redirect()->route('dashboard.page.create');
+            return redirect()->route('dashboard');
         }
 
         $page = Pages::where('users_id', $request->user()->id)->with("user")->with('socialLinks')->first();

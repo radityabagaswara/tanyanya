@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donations;
+use App\Models\Pages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,10 @@ class DashboardDonationController extends Controller
     public function index()
     {
         $user = auth()->user();
+
+        if (!Pages::where('users_id', $user->id)->first()) {
+            return redirect()->route('dashboard');
+        }
 
         $total_donation = Cache::remember('total_donation' . $user->id, 3600, function () use ($user) {
             return Donations::where('users_id', $user->id)

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardPageController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TanyaController;
+use App\Http\Controllers\TargetsController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserSettingsController;
 use Illuminate\Foundation\Application;
@@ -46,6 +47,10 @@ Route::middleware([
     Route::post("/dashboard/profile", [ProfileController::class, "update"])->name("dashboard.profile.update");
 
     Route::get("/dashboard/donations", [DashboardDonationController::class, "index"])->name("dashboard.donation");
+
+    Route::get('/dashboard/donations/targets', [TargetsController::class, 'index'])->name('dashboard.targets');
+    Route::post('/dashboard/donations/targets', [TargetsController::class, 'store'])->name('dashboard.targets.store');
+    Route::get("/dashboard/donations/target/{target}", [TargetsController::class, "show"])->name("dashboard.targets.show");
 
 });
 
